@@ -7,13 +7,11 @@ const currentBg = "hsla(0, 0%, 100%, .5)";
 
 const Header = () => {
   return (
-    <header className="absolute z-[1] top-0 left-0 w-full h-[64px] border-b-[1px] border-solid justify-between border-[#fff50] flex items-center  px-[56px]">
+    <header className="absolute z-[3] top-0 left-0 w-full h-[64px] border-b-[0.6px] border-solid justify-between border-[#fff2] flex items-center  px-[56px]">
       <div className="topside h-full flex items-center ">
         <Link href={"/"}>
           {/* qq logo */}
           <Image
-            fetchPriority={"high"}
-            priority={true}
             className="h-[22px] w-[52px]"
             src={logo}
             alt="qq logo"
