@@ -11,7 +11,11 @@ import unmute from "@/assets/un-mute.png";
 import arrow from "@/assets/arrow-b.svg";
 import styeld from "@emotion/styled";
 import { fullScreen } from "@/utils/fullScreen";
-
+import qq9 from "@/assets/QQ9.png";
+import cardBg from "@/assets/cardBg.png";
+import Video from "@/components/controlVideo";
+import { motion, useScroll, useTransform } from "framer-motion";
+import cards from '@/assets/cards.png'
 const OSData = [
   {
     name: "iOS",
@@ -81,34 +85,118 @@ const Arrow = styeld(Image)`
     }
     90% {
       opacity: 0.8;
-      transform: translateY(14px);
+      transform: translateY(1vw);
     }
     100% {
       opacity: 0;
-      transform: translateY(14px);
+      transform: translateY(1vw);
     }
   }
 `;
+const VideoCard = styeld.div`
+  /*  视频卡片的起始和结束状态,解释用 不删 */
+  @keyframes cardflip {
+    0% {
+      width: 66.49350649vw;
+      height: 37.4025974vw;
+      margin-left: -33.24675325vw;
+      transform: translateZ(0) rotate3d(1, 0, 1, 0deg);
+      box-shadow: 2.33766234vw 2.07792208vw 1.03896104vw transparent;
+  }
+  100% {
+      border-radius: 2.07792208vw;
+      width: 17.14285714vw;
+      height: 35.22077922vw;
+      margin-left: -8.57142857vw;
+      box-shadow: 2.33766234vw 2.07792208vw 1.2987013vw rgba(0, 0, 0, .11);
+      transform: translate3d(0, 28.51948052vw, 0) rotate3d(.93, -.38, .55, 65deg);
+    }
+  }
+  
+`;
+
 const Index = () => {
   const [videoState, setVideoState] = useState(false); //视频播放状态
   const [isFull, setIsFull] = useState(false); //全屏状态
   const [isMute, setIsMute] = useState(true); //视频静音状态
   const [video, setVideo] = useState<null | HTMLVideoElement>(null);
+  const [hiddenTools,setHiddenTools] = useState(false)
   let QQText: HTMLElement = useRef<HTMLElement>().current as HTMLElement;
+  const introVideoRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: introVideoRef,
+    offset: ["1.2 end", "start start"],
+  });
+  const rounded = useTransform(scrollYProgress, (value) => value * 25);
+  const w = useTransform(scrollYProgress, (value) => {
+    const width = 66.49350649 - value * 95;
+    if (width > 17.14285714) {
+      return `${width}vw`;
+    } else {
+      return `${17.14285714}vw`;
+    }
+  });
+  const h = useTransform(scrollYProgress, (value) => {
+    const height = 37.4025974 - value * 5;
+    if (height > 35.22077922) {
+      return `${height}vw`;
+    } else {
+      return `${35.22077922}vw`;
+    }
+  });
+  
+  const calc = (value: number) => {
+    // 各个动画的运动曲线函数
+    const y = (value - 0.52) * 59.4155844;
+    const r = (value - 0.52) * 135.4167;
+    const o = (value - 0.52) * 2.083333;
+    const s = (value - 0.52) / 0.048;
+    return {
+      y,
+      r,
+      o,
+      s,
+    };
+  };
+  const shadow = useTransform(scrollYProgress, (value) => {
+    if (value > 0.52) {
+      return `20px 18px 25px ${calc(value).s}px #0002`;
+    }
+    return ``;
+  });
+  const o: any = useTransform(scrollYProgress, (value) => {
+    if (value > 0.52) {
+      if(!hiddenTools) {
+        setHiddenTools(true)
+      }
+      return `${calc(value).o}`;
+    }
+    if(hiddenTools) {
+      setHiddenTools(false)
+    }
+    return "0";
+  });
+  const translate: any = useTransform(scrollYProgress, (value) => {
+    if (value > 0.52) {
+      return `translate3d(0, ${
+        calc(value).y
+      }vw, 0) rotate3d(0.93, -0.38, 0.55, ${calc(value).r}deg)`;
+    }
+    return ``;
+  });
   const handleClickMute = () => {
     setIsMute((pre) => !pre);
   };
   const handleClickFull = () => {
     setIsFull(true);
-    if(video) {
-      fullScreen(video)
-      video.addEventListener('fullscreenchange',()=>{
+    if (video) {
+      fullScreen(video);
+      video.addEventListener("fullscreenchange", () => {
         if (!document.fullscreenElement) {
           setIsFull(false);
         }
-      })
+      });
     }
-    
   };
   const palyVideo = () => {
     if (videoState) {
@@ -145,12 +233,7 @@ const Index = () => {
   }, [video]);
   return (
     <Layout title="QQ-轻松做自己">
-      <div
-        style={{
-          height: "100vh",
-        }}
-        className="w-screen h-screen flex justify-center items-center"
-      >
+      <section className="w-full h-screen flex justify-center items-center">
         {backImg()}
         <div className="absolute z-[2] top-0 left-0 w-full h-full object-cover">
           <video
@@ -174,34 +257,36 @@ const Index = () => {
         {/* 内容主体 main content */}
         <div className="absolute top-0 left-0 w-full min-h-screen z-[2]">
           {/* 栏目 tool menu */}
-         {!isFull && <div className="absolute z-[3] top-[80px] right-[56px] flex">
-            <div
-              onClick={handleClickVideo}
-              className="w-[32px] h-[32px] cursor-pointer flex justify-center items-center mr-[16px] bg-[rgba(0,0,0,.2)] hover:opacity-35 rounded-full"
-            >
-              <Image
-                src={!videoState ? play : pause}
-                className="w-[16px]"
-                alt="play video"
-              ></Image>
+          {!isFull && (
+            <div className="absolute z-[3] top-[80px] right-[56px] flex">
+              <div
+                onClick={handleClickVideo}
+                className="w-[32px] h-[32px] cursor-pointer flex justify-center items-center mr-[16px] bg-[rgba(0,0,0,.2)] hover:opacity-35 rounded-full"
+              >
+                <Image
+                  src={!videoState ? play : pause}
+                  className="w-[16px]"
+                  alt="play video"
+                ></Image>
+              </div>
+              <div
+                onClick={handleClickFull}
+                className="w-[32px] h-[32px] cursor-pointer flex justify-center items-center mr-[16px] bg-[rgba(0,0,0,.2)] hover:opacity-35 rounded-full"
+              >
+                <Image src={full} className="w-[16px]" alt="play video"></Image>
+              </div>
+              <div
+                onClick={handleClickMute}
+                className="w-[32px] h-[32px] cursor-pointer flex justify-center items-center bg-[rgba(0,0,0,.2)] hover:opacity-20 rounded-full"
+              >
+                <Image
+                  src={isMute ? mute : unmute}
+                  className="w-[16px]"
+                  alt="play video"
+                ></Image>
+              </div>
             </div>
-            <div
-              onClick={handleClickFull}
-              className="w-[32px] h-[32px] cursor-pointer flex justify-center items-center mr-[16px] bg-[rgba(0,0,0,.2)] hover:opacity-35 rounded-full"
-            >
-              <Image src={full} className="w-[16px]" alt="play video"></Image>
-            </div>
-            <div
-              onClick={handleClickMute}
-              className="w-[32px] h-[32px] cursor-pointer flex justify-center items-center bg-[rgba(0,0,0,.2)] hover:opacity-20 rounded-full"
-            >
-              <Image
-                src={isMute ? mute : unmute}
-                className="w-[16px]"
-                alt="play video"
-              ></Image>
-            </div>
-          </div>}
+          )}
           {centerText()}
           {/* 底部下载栏 download menu*/}
           <div className="absolute z-[3] bottom-[3.4vw] h-[11.22vw] flex items-end justify-center left-0 w-full">
@@ -228,6 +313,61 @@ const Index = () => {
             alt=""
           />
         </div>
+      </section>
+      <div className="main-mod w-full ">
+        <section
+          style={{ perspective: "8000px" }}
+          className="min-h-[100vh] flex items-center flex-col w-full"
+        >
+          <div className="base-info flex flex-col mt-[3.11688312vw] pt-[1.81818182vw]">
+            <div
+              data-aos="fade-up"
+              className="mb-[0.3896104vw] h-[2.85714286vw] flex justify-center"
+            >
+              <Image className="h-full w-auto" src={qq9} alt="" />
+            </div>
+            <h1
+              data-aos="fade-up"
+              className="text-black font-bold text-[3.53246753vw] leading-[3.53246753vw] mt-[0.57142857vw]"
+            >
+              轻松做自己
+            </h1>
+          </div>
+          <motion.div
+            style={{
+              // scaleX:scrollYProgress,
+              borderRadius: rounded,
+              width: w,
+              height: h,
+              transformStyle: "preserve-3d",
+              transform: translate,
+              boxShadow:shadow
+            }}
+            ref={introVideoRef}
+            className="w-[66.49350649vw] transition-all duration-100 ease-linear shadow-sm overflow-hidden h-[37.4025974vw] relative mt-[2.42vw]"
+          >
+            <Video
+              hiddenTools={hiddenTools}
+              className="w-full h-full   object-cover"
+              src="https://static-res.qq.com/web/im.qq.com/qq9-introduction.mp4"
+            />
+            <motion.div
+              style={{
+                opacity: o,
+              }}
+              className="absolute top-0 left-0 w-full h-full opacity-0"
+            >
+              <Image className="h-full object-fill " src={cardBg} alt="" />
+            </motion.div>
+          </motion.div>
+          <div className="w-full mt-[2vw] relative h-[44.72727273vw] mr-[3.4vw]">
+              <Image className="w-full h-full" src={cards} alt="" />
+              <div className="absolute top-0 left-0 w-full flex items-center flex-col">
+                
+              </div>
+          </div>
+        </section>
+        <section className="w-full h-screen bg-blue-50"></section>
       </div>
     </Layout>
   );

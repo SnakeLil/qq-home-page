@@ -20,6 +20,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  height: 100%;
 }
 html {
   /* 禁用iPhone中Safari的字号自动调整 */
@@ -30,7 +31,6 @@ html {
   scroll-timeline: --squareTimeline y;
   /* Firefox supports the older "vertical" syntax */
   scroll-timeline: --squareTimeline vertical;
-  max-width: 100vw;
 }
 * {
   box-sizing: border-box;
