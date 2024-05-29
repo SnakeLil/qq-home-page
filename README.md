@@ -11,11 +11,11 @@ First, run the development server:
 首先，运行开发服务器：
 
 npm run dev
-# or
+or
 yarn dev
-# or
+or
 pnpm dev
-# or
+or
 bun dev
 
 Open http://localhost:3000 with your browser to see the result.
@@ -24,22 +24,11 @@ Open http://localhost:3000 with your browser to see the result.
 You can start editing the page by modifying app/page.tsx. The page auto-updates as you edit the file.
 您可以通过修改 app/page.tsx 开始编辑页面。当您编辑文件时，页面会自动更新。
 
-## Usage example
-
-
-
-## Release History
-
-
-
 ## Meta
 
 SnakeLil – [@SnakeLil](https://github.com/SnakeLil) – lilsnake239299@gmail.com
 
 Distributed under the XYZ license. See ``LICENSE`` for more information.
-
-
-## Contributing
 
 ## 声明
 
