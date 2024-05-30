@@ -39,7 +39,12 @@ const cardData = {
   hslm: 4.41558442,
   noair: 24.93506494,
 };
-const Card = (props: any) => {
+
+interface IProps {
+    className?: string
+    [property: string]: any;
+}
+const Card = (props: IProps) => {
   return (
     <div
       style={{ perspective: "1800px" }}
@@ -66,7 +71,7 @@ const Card = (props: any) => {
     </div>
   );
 };
-const ThreePart = () => {
+const ThreePart = (props:IProps) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -231,7 +236,7 @@ const ThreePart = () => {
     },
   ];
   return (
-    <motion.section className="w-full overflow-x-hidden min-h-[150vh] bg-cover bg-[url('https://qq-web.cdn-go.cn/im.qq.com_new/6c980544/img/scene-bg-x.6a1a9834.png')] bg-blue-50 flex items-center flex-col">
+    <motion.section className={`${props.className} w-full overflow-x-hidden overflow-y-hidden min-h-[150vh] bg-cover bg-[url('https://qq-web.cdn-go.cn/im.qq.com_new/6c980544/img/scene-bg-x.6a1a9834.png')] bg-blue-50 flex items-center flex-col`}>
       {/* base info */}
       <div className="base-info w-full flex flex-col items-center">
         {/* eslint-disable-next-line  */}

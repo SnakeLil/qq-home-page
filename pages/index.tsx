@@ -130,6 +130,7 @@ const Index = () => {
     target: introVideoRef,
     offset: ["1.2 end", "start start"],
   });
+ 
   const rounded = useTransform(scrollYProgress, (value) => value * 25);
   // 各种状态/dom操作
   useTransform(scrollYProgress, (value) => {
@@ -446,8 +447,8 @@ const Index = () => {
           </div>
         </section>
       </div>
-     <div className="w-full">
-     <ThreePart/>
+     <div className="w-full min-h-[200vh]">
+      <ThreePart className=""/>
      </div>
     </Layout>
   );
