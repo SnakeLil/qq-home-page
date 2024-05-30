@@ -15,7 +15,9 @@ import qq9 from "@/assets/QQ9.png";
 import cardBg from "@/assets/cardBg.png";
 import Video from "@/components/controlVideo";
 import { motion, useScroll, useTransform } from "framer-motion";
-import cards from '@/assets/cards.png'
+import cards from "@/assets/cards.png";
+import { blackQQ9 } from "@/assets/dataUrl";
+import ThreePart from "@/components/section/ThreePart";
 const OSData = [
   {
     name: "iOS",
@@ -120,14 +122,27 @@ const Index = () => {
   const [isFull, setIsFull] = useState(false); //全屏状态
   const [isMute, setIsMute] = useState(true); //视频静音状态
   const [video, setVideo] = useState<null | HTMLVideoElement>(null);
-  const [hiddenTools,setHiddenTools] = useState(false)
+  const [hiddenTools, setHiddenTools] = useState(false);
   let QQText: HTMLElement = useRef<HTMLElement>().current as HTMLElement;
+  const [showBaseInfo, setShowBaseInfo] = useState(false);
   const introVideoRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: introVideoRef,
     offset: ["1.2 end", "start start"],
   });
   const rounded = useTransform(scrollYProgress, (value) => value * 25);
+  // 各种状态/dom操作
+  useTransform(scrollYProgress, (value) => {
+    if (value > 0.62) {
+      if (!showBaseInfo) {
+        setShowBaseInfo(true);
+      }
+    } else {
+      if (showBaseInfo) {
+        setShowBaseInfo(false);
+      }
+    }
+  });
   const w = useTransform(scrollYProgress, (value) => {
     const width = 66.49350649 - value * 95;
     if (width > 17.14285714) {
@@ -144,45 +159,57 @@ const Index = () => {
       return `${35.22077922}vw`;
     }
   });
-  
+
   const calc = (value: number) => {
     // 各个动画的运动曲线函数
-    const y = (value - 0.52) * 59.4155844;
-    const r = (value - 0.52) * 135.4167;
-    const o = (value - 0.52) * 2.083333;
-    const s = (value - 0.52) / 0.048;
+    const y = (value - 0.52) * 59.4155844; // translate3d——y
+    const x = (value - 0.52) * 3.504; // translate3d——x
+    const r = (value - 0.52) * 135.4167; // rotate3d——deg
+    const o = (value - 0.52) * 3.5714; // 遮盖的图片的opacity
+    const s = (value - 0.52) / 0.048; // 卡片的 shadow
+    const m = 0.8 - (value - 0.56) * 2.2727; // 黑白遮罩的mask
     return {
       y,
+      x,
       r,
       o,
       s,
+      m,
     };
   };
   const shadow = useTransform(scrollYProgress, (value) => {
     if (value > 0.52) {
       return `20px 18px 25px ${calc(value).s}px #0002`;
     }
-    return ``;
+    return `none`;
+  });
+  const mask: any = useTransform(scrollYProgress, (value) => {
+    if (value > 0.56) {
+      return `radial-gradient(ellipse at top,rgb(0, 0, 0,${
+        calc(value).m
+      }),rgb(0, 0, 0,${calc(value).m}))`;
+    }
+    return `radial-gradient(ellipse at top,rgb(0, 0, 0,0.8),rgb(0, 0, 0,0.7)`;
   });
   const o: any = useTransform(scrollYProgress, (value) => {
     if (value > 0.52) {
-      if(!hiddenTools) {
-        setHiddenTools(true)
+      if (!hiddenTools) {
+        setHiddenTools(true);
       }
       return `${calc(value).o}`;
     }
-    if(hiddenTools) {
-      setHiddenTools(false)
+    if (hiddenTools) {
+      setHiddenTools(false);
     }
     return "0";
   });
   const translate: any = useTransform(scrollYProgress, (value) => {
     if (value > 0.52) {
-      return `translate3d(0, ${
+      return `translate3d(${calc(value).x}vw, ${
         calc(value).y
       }vw, 0) rotate3d(0.93, -0.38, 0.55, ${calc(value).r}deg)`;
     }
-    return ``;
+    return `none`;
   });
   const handleClickMute = () => {
     setIsMute((pre) => !pre);
@@ -317,7 +344,7 @@ const Index = () => {
       <div className="main-mod w-full ">
         <section
           style={{ perspective: "8000px" }}
-          className="min-h-[100vh] flex items-center flex-col w-full"
+          className="min-h-[60vh] flex items-center flex-col w-full"
         >
           <div className="base-info flex flex-col mt-[3.11688312vw] pt-[1.81818182vw]">
             <div
@@ -340,11 +367,11 @@ const Index = () => {
               width: w,
               height: h,
               transformStyle: "preserve-3d",
-              transform: translate,
-              boxShadow:shadow
+              transform: translate?translate:'',
+              boxShadow: shadow?shadow:'',
             }}
             ref={introVideoRef}
-            className="w-[66.49350649vw] transition-all duration-100 ease-linear shadow-sm overflow-hidden h-[37.4025974vw] relative mt-[2.42vw]"
+            className="w-[66.49350649vw] z-[3] transition-all duration-100 ease-linear shadow-sm overflow-hidden h-[37.4025974vw] relative mt-[2.42vw]"
           >
             <Video
               hiddenTools={hiddenTools}
@@ -360,15 +387,68 @@ const Index = () => {
               <Image className="h-full object-fill " src={cardBg} alt="" />
             </motion.div>
           </motion.div>
-          <div className="w-full mt-[2vw] relative h-[44.72727273vw] mr-[3.4vw]">
+          <div className="w-full mt-[2vw] relative h-[44.72727273vw] bg-no-repeat ">
+            {/* 底部卡片图片 */}
+            <Image className="w-full h-full opacity-0" src={cards} alt="" />
+            <Image
+              className="w-full z-[1] h-full absolute top-0 left-0"
+              src={cards}
+              alt=""
+            />
+            {/* 模拟黑白阴影遮罩，圆形渐变 */}
+            <motion.div
+              style={{
+                mask: mask,
+                filter: "grayscale(100%)",
+              }}
+              className="z-[1] absolute top-0 left-0"
+            >
               <Image className="w-full h-full" src={cards} alt="" />
-              <div className="absolute top-0 left-0 w-full flex items-center flex-col">
-                
+            </motion.div>
+            {/* 背景 */}
+            {/*  eslint-disable-next-line  */}
+            <img
+              className="absolute z-0 top-0 blur-lg left-0 w-full h-full"
+              src="https://qq-web.cdn-go.cn/im.qq.com_new/6c980544/img/scene-bg-x.6a1a9834.png"
+              alt=""
+            />
+
+            {showBaseInfo && (
+              <div className="absolute top-[-20vw] left-0 w-full flex items-center flex-col">
+                {/*  eslint-disable-next-line  */}
+                <img
+                  data-aos="fade-up"
+                  className="w-[4.57142857vw] h-[1.55844156vw] mb-[1.03896104vw]"
+                  src={blackQQ9}
+                  alt=""
+                />
+                <h1
+                  data-aos="fade-up"
+                  className="text-black font-semibold text-[3.53246753vw] leading-[3.53246753vw]"
+                >
+                  <span>界面</span>
+                  <span className="text-[#09f] ">轻盈焕新</span>
+                </h1>
+                <h1
+                  data-aos="fade-up"
+                  className="text-black font-semibold text-[3.53246753vw] leading-[3.53246753vw] mt-[0.77922078vw]"
+                >
+                  简洁纯粹 氛围轻松
+                </h1>
+                <p
+                  data-aos="fade-up"
+                  className="text-[1.24675325vw] text-[#a6a6a6] mt-[.93506494vw]"
+                >
+                  操作灵动舒适，视觉简单纯粹
+                </p>
               </div>
+            )}
           </div>
         </section>
-        <section className="w-full h-screen bg-blue-50"></section>
       </div>
+     <div className="w-full">
+     <ThreePart/>
+     </div>
     </Layout>
   );
 };

@@ -67,7 +67,7 @@ const Header = () => {
         position: isFixed,
         border:'var(--border)'
       }}
-      className="absolute z-[3] top-0 bg-[var(--b)] left-0 w-full h-[var(--h)]  justify-between flex items-center  px-[56px]"
+      className="absolute z-[11] top-0 bg-[var(--b)] left-0 w-full h-[var(--h)]  justify-between flex items-center  px-[56px]"
     >
       <div className="topside h-full flex items-center ">
         <Link href={"/"} className="relative">
