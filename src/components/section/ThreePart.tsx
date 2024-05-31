@@ -1,7 +1,7 @@
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { ForwardedRef, forwardRef, useEffect, useRef, useState } from "react";
 import styeld from "@emotion/styled";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, MotionStyle, useScroll, useTransform } from "framer-motion";
 import wzry from "@/assets/wzry.png";
 import wzry1 from "@/assets/wzry1.png";
 import wzryBanner from "@/assets/wzry-banner.png";
@@ -42,6 +42,7 @@ const cardData = {
 
 interface IProps {
     className?: string
+    style?: React.CSSProperties | MotionStyle | undefined
     [property: string]: any;
 }
 const Card = (props: IProps) => {
@@ -71,10 +72,11 @@ const Card = (props: IProps) => {
     </div>
   );
 };
-const ThreePart = (props:IProps) => {
-  const ref = useRef(null);
+const ThreePart = (props:IProps,ref:ForwardedRef<null>) => {
+  const {className,style} = props
+  const MyRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: MyRef,
     offset: ["1 end", "start start"],
   });
   const calc = (value: number) => {
@@ -164,7 +166,6 @@ const ThreePart = (props:IProps) => {
     }vw,0) scale(${calc(value).cardScale})`;
   });
   const leftCardTransform: any = useTransform(scrollYProgress, (value) => {
-    console.log(value);
     return `scale(${calc(value).s}) translate3d(${calc(value).x}vw,0,0) `;
   });
   const rigthCardTransform: any = useTransform(scrollYProgress, (value) => {
@@ -236,9 +237,12 @@ const ThreePart = (props:IProps) => {
     },
   ];
   return (
-    <motion.section className={`${props.className} w-full overflow-x-hidden overflow-y-hidden min-h-[150vh] bg-cover bg-[url('https://qq-web.cdn-go.cn/im.qq.com_new/6c980544/img/scene-bg-x.6a1a9834.png')] bg-blue-50 flex items-center flex-col`}>
+    <motion.section style={{
+      position:'relative',      
+      ...style,
+    }} className={`${className} w-full overflow-x-hidden overflow-y-hidden min-h-[100vh] bg-cover bg-[url('https://qq-web.cdn-go.cn/im.qq.com_new/6c980544/img/scene-bg-x.6a1a9834.png')] bg-blue-50 flex items-center flex-col`}>
       {/* base info */}
-      <div className="base-info w-full flex flex-col items-center">
+      <div ref={ref?ref:null} className="base-info w-full flex flex-col items-center">
         {/* eslint-disable-next-line  */}
         <div data-aos="fade-up" className="flex items-center mb-[1.03896104vw]">
           <img className="w-[6.7012987vw] h-[1.66233766vw]" src={qqpb} alt="" />
@@ -263,7 +267,7 @@ const ThreePart = (props:IProps) => {
       </div>
       {/* 农 */}
       <div
-        ref={ref}
+        ref={MyRef}
         className="w-ful relative flex justify-center mt-[1.2987013vw] z-[10]"
       >
         <Card
@@ -297,4 +301,4 @@ const ThreePart = (props:IProps) => {
   );
 };
 
-export default ThreePart;
+export default forwardRef(ThreePart);

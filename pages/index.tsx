@@ -18,6 +18,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import cards from "@/assets/cards.png";
 import { blackQQ9 } from "@/assets/dataUrl";
 import ThreePart from "@/components/section/ThreePart";
+import ParallaxContainer from "@/components/parallaxContainer";
 const OSData = [
   {
     name: "iOS",
@@ -130,7 +131,7 @@ const Index = () => {
     target: introVideoRef,
     offset: ["1.2 end", "start start"],
   });
- 
+
   const rounded = useTransform(scrollYProgress, (value) => value * 25);
   // 各种状态/dom操作
   useTransform(scrollYProgress, (value) => {
@@ -368,8 +369,8 @@ const Index = () => {
               width: w,
               height: h,
               transformStyle: "preserve-3d",
-              transform: translate?translate:'',
-              boxShadow: shadow?shadow:'',
+              transform: translate ? translate : "",
+              boxShadow: shadow ? shadow : "",
             }}
             ref={introVideoRef}
             className="w-[66.49350649vw] z-[3] transition-all duration-100 ease-linear shadow-sm overflow-hidden h-[37.4025974vw] relative mt-[2.42vw]"
@@ -447,9 +448,7 @@ const Index = () => {
           </div>
         </section>
       </div>
-     <div className="w-full min-h-[200vh]">
-      <ThreePart className=""/>
-     </div>
+      <ParallaxContainer />
     </Layout>
   );
 };
