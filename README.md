@@ -5,7 +5,9 @@
 
 这是一个使用 Next.js、TypeScript 和 Tailwind CSS 重新制作的 [QQ 官方网站](https://im.qq.com/index) 首页。本项目采用了流畅的动画效果和响应式设计，以还原原始网站的交互体验。
 
-![QQ首页预览](public/preview.png)
+![QQ首页预览](https://github.com/user-attachments/assets/2e36ddab-9133-49c8-950e-e05599d6a982)
+![QQ首页预览](https://github.com/user-attachments/assets/4886a2d9-95af-42b0-bdc6-3c53ac498ed0)
+![QQ首页预览](https://github.com/user-attachments/assets/4e4543d9-b717-42b3-862a-30b7adabec77)
 
 ## 🚀 特性
 
