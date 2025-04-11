@@ -1,82 +1,82 @@
 🌐 **Languages**: 
-[English](./README.md) | [简体中文](./docs/README.zh-CN.md)
+[简体中文](./README.md) | [English](./docs/README.EN.md)
 
-# QQ Homepage Clone
+# QQ 官网首页克隆
 
-A modern recreation of the [QQ Official Website](https://im.qq.com/index) homepage using Next.js, TypeScript, and Tailwind CSS. This project features smooth animations and responsive design to replicate the original website's interactive experience.
+这是一个使用 Next.js、TypeScript 和 Tailwind CSS 重新制作的 [QQ 官方网站](https://im.qq.com/index) 首页。本项目采用了流畅的动画效果和响应式设计，以还原原始网站的交互体验。
 
-![QQ Homepage Preview](public/preview.png)
+![QQ首页预览](public/preview.png)
 
-## 🚀 Features
+## 🚀 特性
 
-- Responsive design that works on desktop and mobile
-- Smooth scroll animations and transitions
-- Interactive UI components
-- Modern tech stack implementation
-- Performance optimized assets
+- 适配桌面端和移动端的响应式设计
+- 流畅的滚动动画和过渡效果
+- 交互式 UI 组件
+- 现代化技术栈实现
+- 性能优化的资源加载
 
-## 🛠️ Technologies
+## 🛠️ 技术栈
 
-- [Next.js](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [React](https://reactjs.org/)
+- [Next.js](https://nextjs.org/) - React 框架
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript 的超集
+- [Tailwind CSS](https://tailwindcss.com/) - CSS 框架
+- [React](https://reactjs.org/) - UI 库
 
-## 📦 Installation
+## 📦 安装
 
-First, clone the repository:
+首先，克隆仓库：
 
 ```bash
 git clone https://github.com/SnakeLil/qq-home-page.git
 cd qq-home-page
 ```
 
-Then install the dependencies:
+然后安装依赖：
 
 ```bash
 npm install
-# or
+# 或者
 yarn install
-# or
+# 或者
 pnpm install
 ```
 
-## 🔧 Development
+## 🔧 开发
 
-Run the development server:
+运行开发服务器：
 
 ```bash
 npm run dev
-# or
+# 或者
 yarn dev
-# or
+# 或者
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+在浏览器中打开 [http://localhost:3000](http://localhost:3000) 查看效果。
 
-## 🌐 Production
+## 🌐 生产环境
 
-Build for production:
+构建生产版本：
 
 ```bash
 npm run build
 npm run start
 ```
 
-## 📝 Notes
+## 📝 说明
 
-This is a study project created for learning purposes. It recreates the UI/UX of QQ's official website to demonstrate front-end development skills and is not intended for commercial use.
+这是一个学习目的的项目。它重现了 QQ 官方网站的 UI/UX，用于展示前端开发技能，不用于商业用途。
 
-## 👨‍💻 Author
+## 👨‍💻 作者
 
 **SnakeLil**
 - GitHub: [@SnakeLil](https://github.com/SnakeLil)
-- Email: lilsnake239299@gmail.com
+- 邮箱: lilsnake239299@gmail.com
 
-## 📄 License
+## 📄 许可证
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
 ```text
 MIT License
@@ -102,6 +102,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## ⚠️ Disclaimer
+## ⚠️ 免责声明
 
-This project is a clone created solely for educational purposes. All rights for the original design and assets belong to Tencent's QQ. This implementation is not affiliated with, maintained, authorized, endorsed, or sponsored by Tencent or QQ.
+本项目仅用于学习目的的克隆项目。原始设计和资源的所有权利均属于腾讯 QQ。本实现与腾讯或 QQ 没有任何关联，未经维护、授权、认可或赞助。
