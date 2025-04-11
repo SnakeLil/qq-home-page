@@ -1,49 +1,107 @@
-# qq-home-page
+🌐 **Languages**: 
+[English](./README.md) | [简体中文](./docs/README.zh-CN.md)
 
-Imitation of QQ official website homepage
-仿qq官网首页——https://im.qq.com/index
+# QQ Homepage Clone
 
+A modern recreation of the [QQ Official Website](https://im.qq.com/index) homepage using Next.js, TypeScript, and Tailwind CSS. This project features smooth animations and responsive design to replicate the original website's interactive experience.
 
+![QQ Homepage Preview](public/preview.png)
 
-## Installation
+## 🚀 Features
 
-First, run the development server:
-首先，运行开发服务器：
+- Responsive design that works on desktop and mobile
+- Smooth scroll animations and transitions
+- Interactive UI components
+- Modern tech stack implementation
+- Performance optimized assets
 
+## 🛠️ Technologies
+
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React](https://reactjs.org/)
+
+## 📦 Installation
+
+First, clone the repository:
+
+```bash
+git clone https://github.com/SnakeLil/qq-home-page.git
+cd qq-home-page
+```
+
+Then install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+## 🔧 Development
+
+Run the development server:
+
+```bash
 npm run dev
-or
+# or
 yarn dev
-or
+# or
 pnpm dev
-or
-bun dev
+```
 
-Open http://localhost:3000 with your browser to see the result.
-用浏览器打开http://localhost:3000查看结果。
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying app/page.tsx. The page auto-updates as you edit the file.
-您可以通过修改 app/page.tsx 开始编辑页面。当您编辑文件时，页面会自动更新。
+## 🌐 Production
 
-## Meta
+Build for production:
 
-SnakeLil – [@SnakeLil](https://github.com/SnakeLil) – lilsnake239299@gmail.com
+```bash
+npm run build
+npm run start
+```
 
-Distributed under the XYZ license. See ``LICENSE`` for more information.
+## 📝 Notes
 
-## 声明
+This is a study project created for learning purposes. It recreates the UI/UX of QQ's official website to demonstrate front-end development skills and is not intended for commercial use.
 
-本项目是一套仿 QQ 官网的网站代码，发布在 Github 上。
-本项目仅作学习和研究目的使用，不用于任何商业用途。
-项目的创建和分享旨在促进技术交流和知识传播，不代表对任何相关知识产权的侵犯。
-使用者应明确知晓并遵守相关法律法规，不得利用本项目进行任何非法或不当行为。
-对于因使用本项目而可能产生的任何风险和后果，包括但不限于法律责任、经济损失等，均由使用者自行承担，与项目创建者和分享者无关。
-请使用者在使用本项目时严格遵循以上声明。
+## 👨‍💻 Author
 
-This project is a set of website code that imitates the QQ official website and is published on Github.
-Hereby declare:
-This project is for learning and research purposes only and is not intended for any commercial use.
-The creation and sharing of the project aims to promote technological exchange and knowledge dissemination, and does not represent any infringement of related intellectual property rights.
-Users should be aware of and comply with relevant laws and regulations, and shall not engage in any illegal or improper behavior using this project.
-Any risks and consequences that may arise from the use of this project, including but not limited to legal liability, economic losses, etc., shall be borne by the user and shall not be the responsibility of the project creator or sharer.
-Please strictly follow the above statement when using this project.
+**SnakeLil**
+- GitHub: [@SnakeLil](https://github.com/SnakeLil)
+- Email: lilsnake239299@gmail.com
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```text
+MIT License
+
+Copyright (c) 2024 SnakeLil
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## ⚠️ Disclaimer
+
+This project is a clone created solely for educational purposes. All rights for the original design and assets belong to Tencent's QQ. This implementation is not affiliated with, maintained, authorized, endorsed, or sponsored by Tencent or QQ.
