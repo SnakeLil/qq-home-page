@@ -74,7 +74,7 @@ npm run start
 
 **SnakeLil**
 - GitHub: [@SnakeLil](https://github.com/SnakeLil)
-- 邮箱: lilsnake239299@gmail.com
+- 邮箱: lilsnake239299@gmail.com / 1632852459@qq.com
 
 ## 📄 许可证
 
